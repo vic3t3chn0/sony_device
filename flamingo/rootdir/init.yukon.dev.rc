@@ -1,0 +1,18 @@
+#QCOM sensors
+service sensors /system/vendor/bin/sensors.qcom
+    class main
+    user root
+    group root
+
+#MAC setup
+service btnvtool /system/vendor/bin/btnvtool -I
+    user root
+    group root
+    oneshot
+
+# flamingo's apps_log partition is unformatted, but we need it as ext4
+service setup_fs /system/bin/setup_fs /dev/block/platform/msm_sdcc.1/by-name/apps_log
+    class core
+    user root
+    group root
+    oneshot
